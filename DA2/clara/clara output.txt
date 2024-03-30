@@ -1,0 +1,54 @@
+> # Read the CSV file
+> data <- read_csv("C:/Users/navan/Downloads/data.csv")
+Rows: 60392 Columns: 15                                                                                                           
+── Column specification ───────────────────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): pol_eff_dt, gender, date_of_birth, area, veh_body, claim_office
+dbl (9): pol_number, agecat, credit_score, traffic_index, veh_age, veh_value, numclaims, cl...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Handle missing values
+> data <- na.omit(data)
+> 
+> # Select relevant columns for clustering
+> X <- data[, c('agecat', 'credit_score', 'traffic_index')]
+> 
+> # Optionally, you can also scale the data to improve clustering performance
+> X_scaled <- scale(X)
+> 
+> # Perform CLARA clustering
+> numClusters <- 3  # Update with desired number of clusters
+> clara_model <- clara(X_scaled, k = numClusters)
+> 
+> # View cluster assignments
+> print(clara_model$clustering)
+   [1] 1 2 2 2 1 2 1 2 2 1 3 3 2 1 2 1 1 3 1 1 1 1 3 1 2 1 1 3 3 1 2 2 1 2 2 3 1 3 1 1 2 3 2 1
+  [45] 3 3 1 3 3 2 3 2 1 1 2 2 3 3 2 1 1 3 2 3 1 2 2 3 1 3 3 1 1 2 3 1 2 1 3 2 2 2 1 1 3 3 1 3
+  [89] 2 2 2 3 3 3 1 2 2 1 1 1 2 2 1 1 1 1 1 1 1 2 2 2 3 3 3 3 3 1 1 2 2 2 2 3 3 2 2 3 2 1 3 1
+ [133] 1 3 1 1 3 2 3 2 3 3 1 3 3 1 3 3 1 3 3 3 3 1 3 2 1 3 3 1 3 2 1 3 3 2 1 2 2 1 3 1 2 1 3 1
+ [177] 2 1 2 1 3 3 1 2 2 3 3 2 1 2 1 1 2 3 2 3 1 3 2 2 2 2 1 3 1 2 3 3 1 3 3 2 2 1 3 3 1 1 2 2
+ [221] 3 3 3 1 2 1 2 2 1 3 2 2 3 1 2 1 2 2 3 1 1 2 3 2 2 2 3 2 3 1 2 1 2 3 1 2 3 2 3 1 1 2 2 1
+ [265] 1 1 1 1 1 3 3 2 2 3 1 1 2 1 3 1 1 3 2 1 2 3 3 1 3 2 1 1 1 1 2 2 3 3 3 1 1 1 2 2 3 3 1 3
+ [309] 1 2 2 2 1 1 2 2 3 1 3 2 1 2 3 3 1 2 2 1 3 1 2 2 3 1 1 3 1 1 2 3 2 2 1 1 1 1 2 2 1 2 1 1
+ [353] 3 1 2 1 2 1 3 3 3 1 1 3 2 3 1 3 1 3 3 3 2 2 1 1 2 2 2 2 2 3 3 2 2 2 3 1 3 1 3 1 1 2 1 1
+ [397] 3 1 2 3 1 1 2 1 3 2 3 2 2 2 1 2 2 3 3 3 1 1 2 3 1 1 2 1 3 1 2 1 2 2 2 3 1 1 3 1 1 1 2 2
+ [441] 3 1 3 1 3 2 2 3 1 3 3 1 3 3 1 1 1 3 3 3 2 1 3 1 2 1 3 3 1 1 3 2 2 2 2 2 1 1 1 2 3 3 2 1
+ [485] 2 2 3 3 2 2 1 3 3 2 1 3 1 1 1 1 1 2 2 3 1 1 1 1 2 3 3 3 1 3 1 2 3 2 1 2 1 3 3 1 1 2 2 3
+ [529] 1 1 3 2 2 1 1 2 1 2 1 1 1 3 2 1 2 3 3 1 3 2 2 1 3 1 3 2 2 1 2 1 1 3 2 3 1 1 3 1 1 3 3 1
+ [573] 1 3 2 1 2 2 2 3 1 2 1 1 2 3 1 1 2 2 1 3 3 3 2 3 3 1 2 3 1 1 2 3 1 1 3 2 3 1 2 3 3 1 1 2
+ [617] 2 2 1 2 1 1 1 3 1 3 1 1 1 2 2 2 2 2 2 3 1 1 2 1 3 2 3 1 1 1 1 3 2 1 1 3 3 3 1 2 2 2 1 2
+ [661] 1 3 1 2 1 1 3 2 2 1 2 1 3 1 2 1 1 1 1 1 1 2 3 1 3 3 3 3 2 2 3 1 1 2 3 2 2 2 3 3 3 1 3 2
+ [705] 1 1 2 3 3 1 1 2 1 1 2 2 3 1 1 2 3 3 3 3 2 3 1 1 1 3 1 3 1 2 3 3 2 3 2 1 3 2 3 3 3 1 2 3
+ [749] 3 3 3 2 2 1 1 3 3 3 2 1 2 2 1 3 1 1 3 3 2 3 1 3 1 3 1 2 1 3 2 3 1 3 3 1 3 1 3 2 3 3 1 1
+ [793] 1 2 3 2 2 3 1 3 1 1 1 2 3 1 3 1 3 2 2 1 3 2 1 3 1 1 2 1 2 2 3 2 2 1 1 2 1 2 3 1 2 1 2 1
+ [837] 3 3 1 2 1 1 2 1 3 1 1 1 1 1 3 1 1 1 2 1 1 1 1 1 1 1 1 3 3 1 2 2 3 2 2 3 3 1 3 1 3 1 3 2
+ [881] 3 2 1 1 1 3 2 1 3 3 2 3 3 1 1 2 3 1 3 2 2 1 1 3 3 3 1 3 3 3 2 3 1 2 2 3 1 2 1 3 1 1 2 2
+ [925] 1 1 1 3 1 3 2 2 3 3 1 1 3 3 3 1 1 3 1 1 1 2 2 1 2 1 2 2 2 3 3 2 3 3 1 2 3 2 1 1 1 3 1 1
+ [969] 3 1 2 2 2 1 3 3 3 2 1 1 3 2 2 2 2 2 3 1 1 3 1 1 2 3 3 3 1 1 3 1
+ [ reached getOption("max.print") -- omitted 7123 entries ]
+> 
+> # Plot clusters
+> plot(X_scaled, col = clara_model$clustering + 1, pch = 20, main = "CLARA Clustering")
+> legend("topright", legend = unique(clara_model$clustering), col = unique(clara_model$clustering) + 1, pch = 20)

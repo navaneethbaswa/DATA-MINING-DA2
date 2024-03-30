@@ -1,0 +1,111 @@
+ 
+> # Read the CSV file
+> data <- read_csv("C:/Users/navan/Downloads/Credit Card Customer Data.csv")
+Rows: 660 Columns: 7                                                                                                              
+── Column specification ───────────────────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (7): Sl_No, Customer Key, Avg_Credit_Limit, Total_Credit_Cards, Total_visits_bank, Tota...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Select relevant columns for clustering
+> X <- data[, c("Age", "CreditScore", "Balance")]
+Error in `data[, c("Age", "CreditScore", "Balance")]`:
+! Can't subset columns that don't exist.
+✖ Columns `Age`, `CreditScore`, and `Balance` don't exist.
+Run `rlang::last_trace()` to see where the error occurred.
+> # Load necessary libraries
+> library(cluster)
+> library(readr)
+> 
+> # Read the CSV file
+> data <- read_csv("C:/Users/navan/Downloads/Credit Card Customer Data.csv")
+Rows: 660 Columns: 7                                                                                                              
+── Column specification ───────────────────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (7): Sl_No, Customer Key, Avg_Credit_Limit, Total_Credit_Cards, Total_visits_bank, Tota...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Select relevant columns for clustering
+> X <- data[, c("Avg_Credit_Limit", "Total_Credit_Cards", "Total_visits_bank", "Total_visits_online", "Total_calls_made")]
+> 
+> # Optionally, you can also scale the data to improve clustering performance
+> X_scaled <- scale(X)
+> 
+> # Specify the number of clusters
+> numClusters <- 3  # Update with the desired number of clusters
+> 
+> # Perform PAM clustering with scaled data
+> pam_model <- pam(X_scaled, k = numClusters)
+> 
+> # Print cluster medoids
+> print(pam_model$medoids)
+     Avg_Credit_Limit Total_Credit_Cards Total_visits_bank Total_visits_online
+[1,]       -0.2278839          0.5968810         0.3658322          -0.5470748
+[2,]       -0.5468166         -0.7869883        -0.8597985           0.4748196
+[3,]        2.5627776          1.9807502        -0.8597985           2.5186084
+     Total_calls_made
+[1,]       -0.5525858
+[2,]        1.1924219
+[3,]       -0.9015873
+> 
+> # Print cluster membership
+> print(pam_model$clustering)
+  [1] 1 2 1 1 3 2 3 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ [46] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ [91] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[136] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[181] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[226] 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[271] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[316] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[361] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[406] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[451] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[496] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[541] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[586] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+[631] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+> 
+> # Visualize the clustering results if applicable
+> # Example code for visualization (uncomment if needed)
+> # plot(X_scaled, col = pam_model$clustering)
+> # points(pam_model$medoids, col = 1:numClusters, pch = 8, cex = 2)
+> # Load necessary libraries
+> library(cluster)
+> library(readr)
+> library(factoextra)
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+> 
+> # Read the CSV file
+> data <- read_csv("C:/Users/navan/Downloads/Credit Card Customer Data.csv")
+Rows: 660 Columns: 7                                                                                                              
+── Column specification ───────────────────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (7): Sl_No, Customer Key, Avg_Credit_Limit, Total_Credit_Cards, Total_visits_bank, Tota...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Select relevant columns for clustering
+> X <- data[, c("Avg_Credit_Limit", "Total_Credit_Cards", "Total_visits_bank", "Total_visits_online", "Total_calls_made")]
+> 
+> # Optionally, you can also scale the data to improve clustering performance
+> X_scaled <- scale(X)
+> 
+> # Specify the number of clusters
+> numClusters <- 3  # Update with the desired number of clusters
+> 
+> # Perform PAM clustering with scaled data
+> pam_model <- pam(X_scaled, k = numClusters)
+> 
+> # Visualize the clustering results using a silhouette plot
+> silhouette_plot <- silhouette(pam_model$clustering, dist(X_scaled))
+> plot(silhouette_plot)
+> 
+> # Create a scatter plot of the clustered data
+> fviz_cluster(pam_model, data = X_scaled, geom = "point", stand = FALSE)

@@ -1,0 +1,22 @@
+
+> # Read the CSV file
+> data <- read_csv("C:/Users/navan/Downloads/Credit Card Customer Data.csv")
+Rows: 660 Columns: 7                                                                                                              
+── Column specification ───────────────────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (7): Sl_No, Customer Key, Avg_Credit_Limit, Total_Credit_Cards, Total_visits_bank, Tota...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> 
+> # Select relevant columns for clustering
+> X <- data[, c('Avg_Credit_Limit', 'Total_Credit_Cards', 'Total_visits_bank', 'Total_visits_online', 'Total_calls_made')]
+> 
+> # Optionally, you can also scale the data to improve clustering performance
+> X_scaled <- scale(X)
+> 
+> # Perform DIANA clustering with scaled and cleaned data
+> diana_model <- diana(X_scaled)
+> 
+> # Plot dendrogram
+> plot(diana_model, which.plot = 2)
